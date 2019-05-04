@@ -12,12 +12,12 @@ class ByteArrayKey(private val bytes: ByteArray) {
 
 object SecureStorageImpl {
 
-    private val storageMap = HashMap<ByteArrayKey, kotlin.ByteArray>()
+    private var storageMap = HashMap<ByteArrayKey, kotlin.ByteArray>()
     fun read(key: kotlin.ByteArray): kotlin.ByteArray? {
         val value = storageMap.get(key = ByteArrayKey(key))
-        if (value != null) {
+        /*if (value != null) {
             Thread.sleep(value.size.toLong())
-        }
+        }*/
         return value
     }
 
@@ -28,6 +28,20 @@ object SecureStorageImpl {
     fun clear()
     {
         storageMap.clear()
+    }
+
+    fun getDbCopy() : HashMap<ByteArrayKey, kotlin.ByteArray>
+    {
+        return HashMap(storageMap)
+    }
+    fun setDb(other : HashMap<ByteArrayKey, kotlin.ByteArray>)
+    {
+        clear()
+        val listOfPairs = other.toList()
+        for (pair in listOfPairs)
+        {
+            storageMap.put(pair.first, pair.second)
+        }
     }
 }
 
