@@ -14,9 +14,9 @@ class SecureStorageImpl : SecureStorage {
     private var storageMap = HashMap<ByteArrayKey, kotlin.ByteArray>()
     override fun read(key: ByteArray): ByteArray? {
         val value = storageMap.get(key = ByteArrayKey(key))
-        if (value != null) {
+        /*if (value != null) {
             Thread.sleep(value.size.toLong())
-        }
+        }*/
         return value
     }
 
