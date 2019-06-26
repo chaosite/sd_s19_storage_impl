@@ -1,6 +1,8 @@
 package il.ac.technion.cs.softwaredesign.storage
 
+
 import java.util.HashMap
+import java.util.concurrent.CompletableFuture
 
 class ByteArrayKey(private val bytes: ByteArray) {
     override fun equals(other: Any?): Boolean =
@@ -12,16 +14,18 @@ class ByteArrayKey(private val bytes: ByteArray) {
 
 class SecureStorageImpl : SecureStorage {
     private var storageMap = HashMap<ByteArrayKey, kotlin.ByteArray>()
-    override fun read(key: ByteArray): ByteArray? {
-        val value = storageMap.get(key = ByteArrayKey(key))
-        /*if (value != null) {
+    override fun read(key: ByteArray): CompletableFuture<ByteArray?> {
+        return CompletableFuture.supplyAsync {
+            val value = storageMap.get(key = ByteArrayKey(key))
+            if (value != null) {
             Thread.sleep(value.size.toLong())
-        }*/
-        return value
+        }
+            value
+        }
     }
 
-    override fun write(key: ByteArray, value: ByteArray) {
-        storageMap.put(ByteArrayKey(key), value)
+    override fun write(key: ByteArray, value: ByteArray):CompletableFuture<Unit> {
+        return CompletableFuture.supplyAsync {storageMap.put(ByteArrayKey(key), value);Unit}
     }
 }
 
