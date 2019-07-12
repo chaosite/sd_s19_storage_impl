@@ -13,7 +13,7 @@ class SecureStorageFactoryImpl constructor() : SecureStorageFactory {
             val key = ByteArrayKey(name)
 
             if (!storagesMap.containsKey(key)) {
-                storagesMap.put(key, SecureStorageImpl())
+                storagesMap[key] = SecureStorageImpl()
             }
             Thread.sleep(MILISECONDS_DELAY_PER_DB * storagesMap.size.toLong())
             storagesMap[key]!!
