@@ -1,7 +1,7 @@
 package il.ac.technion.cs.softwaredesign.storage
 
 
-import java.util.HashMap
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CompletableFuture
 
 class ByteArrayKey(private val bytes: ByteArray) {
@@ -13,7 +13,7 @@ class ByteArrayKey(private val bytes: ByteArray) {
 }
 
 class SecureStorageImpl : SecureStorage {
-    private var storageMap = HashMap<ByteArrayKey, kotlin.ByteArray>()
+    private var storageMap = ConcurrentHashMap<ByteArrayKey, kotlin.ByteArray>()
     override fun read(key: ByteArray): CompletableFuture<ByteArray?> {
         return CompletableFuture.supplyAsync {
             val value = storageMap.get(key = ByteArrayKey(key))

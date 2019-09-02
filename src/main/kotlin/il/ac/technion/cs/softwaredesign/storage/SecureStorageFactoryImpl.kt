@@ -1,12 +1,11 @@
 package il.ac.technion.cs.softwaredesign.storage
 
 import java.util.concurrent.CompletableFuture
-import java.util.HashMap
-
+import java.util.concurrent.ConcurrentHashMap
 
 
 class SecureStorageFactoryImpl constructor() : SecureStorageFactory {
-    private val storagesMap = HashMap<ByteArrayKey, SecureStorage>()
+    private val storagesMap = ConcurrentHashMap<ByteArrayKey, SecureStorage>()
     private val MILISECONDS_DELAY_PER_DB = 100
 
     override fun open(name: ByteArray): CompletableFuture<SecureStorage> {
