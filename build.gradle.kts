@@ -19,15 +19,15 @@ allprojects {
         set("junitVersion", "5.5.0-M1")
         set("hamkrestVersion", "1.7.0.0")
         set("guiceVersion", "4.2.2")
-        set("kotlinGuiceVersion", "1.3.0")
+        set("kotlinGuiceVersion", "1.4.1")
     }
 }
 val kotlinGuiceVersion: String? by extra
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     compile(kotlin("script-runtime"))
-    compile("com.authzee.kotlinguice4", "kotlin-guice", kotlinGuiceVersion)
-
+    //compile("com.authzee.kotlinguice4", "kotlin-guice", kotlinGuiceVersion)
+    implementation("dev.misfitlabs.kotlinguice4", "kotlin-guice", kotlinGuiceVersion)
 }
 
 tasks.withType<KotlinCompile> {
