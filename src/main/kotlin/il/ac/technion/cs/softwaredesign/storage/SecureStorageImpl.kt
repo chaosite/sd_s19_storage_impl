@@ -17,7 +17,7 @@ internal class SecureStorageImpl : SecureStorage {
     override fun read(key: ByteArray): CompletableFuture<ByteArray?> = CompletableFuture.supplyAsync {
         val value = storageMap.get(key = ByteArrayKey(key))
         if (value != null) {
-            Thread.sleep(value.size.toLong())
+            Thread.sleep(value.size.toLong() / 4)
         }
         value
     }
